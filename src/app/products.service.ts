@@ -18,8 +18,12 @@ export class ProductsService {
     return this.http.post<Product>('https://fakestoreapi.com/products', product);
   }
 
-updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(`https://fakestoreapi.com/products/${product.id}`, product);
-}
+  updateProduct(product: Product): Observable<Product> {
+      return this.http.put<Product>(`https://fakestoreapi.com/products/${product.id}`, product);
+  }
+
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`https://fakestoreapi.com/products/${id}`);
+  }
 
 }

@@ -6,10 +6,10 @@ import { Product } from './product.interface';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  templateUrl: './app.component.html',
+    selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule, RouterOutlet],
+    templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
@@ -49,6 +49,14 @@ export class AppComponent {
   updateProduct(product:Product){
     product.title = "UPDATE";
     this.productsService.updateProduct(product);
+  }
+
+  deleteProduct(product: Product) {
+    this.productsService.deleteProduct(product.id)
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe(() => {
+        this.products$ = this.products$.filter(p => p.id !== product.id);
+    });
   }
 
   ngOnDestroy() {

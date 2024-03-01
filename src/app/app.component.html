@@ -4,19 +4,18 @@
 </div>
 
 <div class="product-container"> 
-@for(product of products$; track product.title) {
-  <div class="card" style="width: 18rem;">
-    <div class="img-container">
-      <img src="{{product.image}}" class="card-img-top" alt="{{product.title}}">
-    </div>
-    
-    <div class="card-body">
-      <p class="card-title product-title"> {{product.title}}</p>
-      <div class="btn-container">
-        <button class="btn btn-primary card-button" (click)="updateProduct(product)">Edit</button>
-        <button class="btn btn-danger card-button">Delete</button>
+  @for(product of products$; track product.title) {
+    <div class="card" style="width: 18rem;">
+      <div class="img-container">
+        <img src="{{product.image}}" class="card-img-top" alt="{{product.title}}">
+      </div>
+      <div class="card-body">
+        <p class="card-title product-title"> {{product.title}}</p>
+        <div class="btn-container">
+          <button class="btn btn-primary card-button" (click)="updateProduct(product)">Edit</button>
+          <button class="btn btn-danger card-button" (click)="deleteProduct(product)">Delete</button>
+        </div>
       </div>
     </div>
-  </div>
-}  
+  }  
 </div>
