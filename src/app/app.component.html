@@ -1,6 +1,10 @@
 
+<div class="button-add">
+  <button class="btn btn-primary" (click)="addProduct()">Add product</button>
+</div>
+
 <div class="product-container"> 
-@for(product of products$; track product.id) {
+@for(product of products$; track product.title) {
   <div class="card" style="width: 18rem;">
     <div class="img-container">
       <img src="{{product.image}}" class="card-img-top" alt="{{product.title}}">

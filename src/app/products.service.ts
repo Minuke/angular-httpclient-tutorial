@@ -8,10 +8,14 @@ import { Product } from './product.interface';
 })
 export class ProductsService {
 
-  private readonly http = inject(HttpClient)
+  private readonly http = inject(HttpClient);
 
   getProducts():Observable<Product[]>{
-    return this.http.get<Product[]>('https://fakestoreapi.com/products?limit=5');
+    return this.http.get<Product[]>('https://fakestoreapi.com/products?limit=4');
   }
+
+  addProduct(product:Product): Observable<Product> {
+    return this.http.post<Product>('https://fakestoreapi.com/products', product);
+}
 
 }
