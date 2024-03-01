@@ -36,22 +36,29 @@ export class AppComponent {
     .subscribe((products: Product[]) => {
         this.products$ = products;
     });
-}
+  }
 
-  addProduct(){
+  addProduct():void {
     this.productsService.addProduct(this.mockProduct)
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe((product:Product)=> {
+      this.generateNewDataProduct(product);
       this.products$.push(product);
     });
   }
 
-  updateProduct(product:Product){
+  generateNewDataProduct(product:Product): void {
+    let randomNumber = Math.floor(Math.random() * 500) + 21;
+    product.id = randomNumber;
+    product.image = `https://picsum.photos/250?random=${randomNumber}`
+  }
+
+  updateProduct(product:Product):void {
     product.title = "UPDATE";
     this.productsService.updateProduct(product);
   }
 
-  deleteProduct(product: Product) {
+  deleteProduct(product: Product):void {
     this.productsService.deleteProduct(product.id)
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(() => {
@@ -59,7 +66,7 @@ export class AppComponent {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy():void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
