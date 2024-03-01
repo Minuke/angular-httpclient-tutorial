@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ProductsService } from './products.service';
 import { CommonModule } from '@angular/common';
 import { Product } from './product.interface';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 export class AppComponent {
 
   private productsService = inject(ProductsService);
-  private subscription!: Subscription;
+  private unsubscribe$ = new Subject<void>();
   public products$!: Product[];
   public mockProduct: Product = {
     id: 0,
@@ -31,21 +31,29 @@ export class AppComponent {
   }
 
   getProducts(): void {
-    this.subscription = this.productsService.getProducts().subscribe((products: Product[]) => {
+    this.productsService.getProducts()
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe((products: Product[]) => {
         this.products$ = products;
     });
 }
 
   addProduct(){
-    this.productsService.addProduct(this.mockProduct).subscribe((product:Product)=> {
+    this.productsService.addProduct(this.mockProduct)
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe((product:Product)=> {
       this.products$.push(product);
     });
   }
 
+  updateProduct(product:Product){
+    product.title = "UPDATE";
+    this.productsService.updateProduct(product);
+  }
+
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

@@ -16,6 +16,10 @@ export class ProductsService {
 
   addProduct(product:Product): Observable<Product> {
     return this.http.post<Product>('https://fakestoreapi.com/products', product);
+  }
+
+updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(`https://fakestoreapi.com/products/${product.id}`, product);
 }
 
 }
