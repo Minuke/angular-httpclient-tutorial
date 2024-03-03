@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProductsService } from './products.service';
 import { CommonModule } from '@angular/common';
 import { Product } from './product.interface';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -17,6 +17,7 @@ export class AppComponent {
   private productsService = inject(ProductsService);
   private unsubscribe$ = new Subject<void>();
   public products$!: Product[];
+  public activeScroll = false;
   public mockProduct: Product = {
     id: 0,
     title: 'Test product',
@@ -26,8 +27,17 @@ export class AppComponent {
     image: 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg',
   };
   
+  @ViewChild('productElement', { read: ElementRef, static: false }) productElement!: ElementRef;
+  
   ngOnInit():void {
     this.getProducts();
+
+  }
+
+  ngAfterViewChecked() {
+    if(this.productElement){
+      this.productElement.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   getProducts(): void {
@@ -39,10 +49,12 @@ export class AppComponent {
   }
 
   addProduct():void {
+    this.activeScroll = true;
     this.productsService.addProduct(this.mockProduct)
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe((product:Product)=> {
       this.generateNewDataProduct(product);
+      
       this.products$.push(product);
     });
   }
@@ -54,11 +66,13 @@ export class AppComponent {
   }
 
   updateProduct(product:Product):void {
+    this.activeScroll = false;
     product.title = "UPDATE";
     this.productsService.updateProduct(product);
   }
 
   deleteProduct(product: Product):void {
+    this.activeScroll = false;
     this.productsService.deleteProduct(product.id)
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(() => {

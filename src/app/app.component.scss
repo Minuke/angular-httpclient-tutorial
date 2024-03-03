@@ -1,5 +1,8 @@
 .button-add {
     margin: 30px 45px;
+    position: sticky;
+    top: 30px;
+    z-index: 1000
 }
 .product-container {
     display: flex;
