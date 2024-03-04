@@ -1,6 +1,6 @@
 # AngularHttpclientTutorial
 
-Tutorial project to understand the concepts of ==HTTP Requests== and ==Interceptors==.
+Tutorial project to understand the concepts of `HTTP Requests` and `Interceptors`.
 
 ## Dependencies
 
