@@ -6,6 +6,6 @@ export const ErrorResponseInterceptor:HttpInterceptorFn = (req, next) => {
 }
 
 function handleErrorResponse(error:HttpErrorResponse) {
-    const errorResponse = `Error ${error.status}: message: ${error.message}`;
+    const errorResponse = `Error ${error.status}, message: ${error.message}`;
     return throwError(() => errorResponse)
 }

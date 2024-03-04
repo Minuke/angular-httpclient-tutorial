@@ -31,7 +31,6 @@ export class AppComponent {
   
   ngOnInit():void {
     this.getProducts();
-
   }
 
   ngAfterViewChecked() {

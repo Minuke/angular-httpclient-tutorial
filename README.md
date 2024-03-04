@@ -1,27 +1,26 @@
 # AngularHttpclientTutorial
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.1.
+Tutorial project to understand the concepts of ==HTTP Requests== and ==Interceptors==.
+
+## Dependencies
+
+- **Angular:** version 17.2.2
+- **Node:** version 20.11.1
+
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `npn run start` to automatically open a tab with your browser preset for a development server.
 
-## Code scaffolding
+## Topics
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+In these pages I talk about the project implementation and the theory behind these concepts. 
 
-## Build
+- **Peticiones HTTP:** https://hackmd.io/@Minuke/HJ35Ayfp6
+- **Interceptores:** https://hackmd.io/@Minuke/HJ35Ayfp6
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## About the project
 
-## Running unit tests
+In this project we make a call to the Fake Storage API to get four products (GET), we have a button to add a new product (POST) with a random image, we have an edit button (PUT) that simply changes the title of the product by a test title and a delete button (DELETE) that removes the entire product from the list of products.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+In addition, there is implemented an interceptor in case the url changes or we do not write it well, to be able to handle the specific error that the API returns us.
