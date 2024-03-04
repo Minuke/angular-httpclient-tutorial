@@ -10,7 +10,7 @@ Tutorial project to understand the concepts of ==HTTP Requests== and ==Intercept
 
 ## Development server
 
-Run `npn run start` to automatically open a tab with your browser preset for a development server.
+Run `npn install` to install "node_modules" and then run `npn run start` to automatically open a tab with your browser preset for a development server.
 
 ## Topics
 
